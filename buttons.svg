@@ -655,7 +655,7 @@
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4142136"
-     inkscape:cx="362.38848"
+     inkscape:cx="363.80269"
      inkscape:cy="1042.3948"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -680,7 +680,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -690,7 +690,10 @@
      id="layer1">
     <g
        id="g3155"
-       transform="translate(-95.41731,-75.16996)">
+       transform="translate(-95.41731,-75.16996)"
+       inkscape:export-filename="/home/pgueth/git/arcade/red_up.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,351.2559,33.15788)"
          sodipodi:type="arc"
@@ -861,7 +864,10 @@
     </g>
     <g
        id="g3942"
-       transform="translate(-36.32351,-117.81431)">
+       transform="translate(-36.32351,-117.81431)"
+       inkscape:export-filename="/home/pgueth/git/arcade/red_down.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,292.1621,33.234204)"
          sodipodi:type="arc"
@@ -1462,7 +1468,10 @@
        ry="0.003494242" />
     <g
        id="g3942-0"
-       transform="translate(30.66947,-117.81431)">
+       transform="translate(30.66947,-117.81431)"
+       inkscape:export-filename="/home/pgueth/git/arcade/green_down.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,292.1621,33.234204)"
          sodipodi:type="arc"
@@ -1556,7 +1565,10 @@
     </g>
     <g
        id="g3155-6"
-       transform="translate(-28.42433,-75.16996)">
+       transform="translate(-28.42433,-75.16996)"
+       inkscape:export-filename="/home/pgueth/git/arcade/green_up.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,351.2559,33.15788)"
          sodipodi:type="arc"
@@ -1650,7 +1662,10 @@
     </g>
     <g
        id="g3155-6-0"
-       transform="translate(38.56866,-75.16996)">
+       transform="translate(38.56866,-75.16996)"
+       inkscape:export-filename="/home/pgueth/git/arcade/yellow_up.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,351.2559,33.15788)"
          sodipodi:type="arc"
@@ -1744,7 +1759,10 @@
     </g>
     <g
        id="g3942-0-3"
-       transform="translate(97.662456,-117.81431)">
+       transform="translate(97.662456,-117.81431)"
+       inkscape:export-filename="/home/pgueth/git/arcade/yellow_down.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,292.1621,33.234204)"
          sodipodi:type="arc"
@@ -1838,7 +1856,10 @@
     </g>
     <g
        id="g3155-6-0-2"
-       transform="translate(105.56164,-75.16996)">
+       transform="translate(105.56164,-75.16996)"
+       inkscape:export-filename="/home/pgueth/git/arcade/blue_up.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,351.2559,33.15788)"
          sodipodi:type="arc"
@@ -1932,7 +1953,10 @@
     </g>
     <g
        id="g3942-0-3-0"
-       transform="translate(164.65544,-117.81431)">
+       transform="translate(164.65544,-117.81431)"
+       inkscape:export-filename="/home/pgueth/git/arcade/blue_down.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,292.1621,33.234204)"
          sodipodi:type="arc"
@@ -2026,7 +2050,10 @@
     </g>
     <g
        id="g3155-6-0-2-4"
-       transform="translate(172.55462,-75.16996)">
+       transform="translate(172.55462,-75.16996)"
+       inkscape:export-filename="/home/pgueth/git/arcade/white_up.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,351.2559,33.15788)"
          sodipodi:type="arc"
@@ -2120,7 +2147,10 @@
     </g>
     <g
        id="g3942-0-3-0-9"
-       transform="translate(231.64842,-117.81431)">
+       transform="translate(231.64842,-117.81431)"
+       inkscape:export-filename="/home/pgueth/git/arcade/white_down.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
       <path
          transform="matrix(1.1627336,0,0,1.1627336,292.1621,33.234204)"
          sodipodi:type="arc"
