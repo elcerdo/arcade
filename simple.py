@@ -12,6 +12,7 @@ pygame.init()
 resolution = (800,600)
 background_color = (0,0,0)
 
+#screen = pygame.display.set_mode(resolution,pygame.DOUBLEBUF|pygame.HWSURFACE|pygame.FULLSCREEN)
 screen = pygame.display.set_mode(resolution,pygame.DOUBLEBUF|pygame.HWSURFACE)
 
 class Button:
@@ -107,7 +108,36 @@ class Title:
             rect_position.left -= position
             screen.blit(sprite,rect_position)
 
+class Background:
+    def __init__(self):
+        self.sprites = [pygame.image.load("background_%d.png" % (number+1)) for number in xrange(2)]
+        self.rects = [sprite.get_rect() for sprite in self.sprites]
+        self.displacements = [(numpy.array((294,0)),numpy.array((-187,213))),(numpy.array((187,66)),numpy.array((40,186)))]
+        self.start_time = time.time()
+    def update(self,event):
+        pass
+    def draw(self):
+        time_delta = time.time()-self.start_time
+        speed = 100
+        for sprite,rect,(dx,dy) in reversed(zip(self.sprites,self.rects,self.displacements)):
+            motion = speed*numpy.array((.75,.25))*time_delta
+            while motion[0]>dx[0] and motion[1]>dx[1]:
+                motion -= dx
+            while motion[0]>dy[0] and motion[1]>dy[1]:
+                motion -= dy
+            while motion[0]>(dx+dy)[0] and motion[1]>(dx+dy)[1]:
+                motion -= (dx+dy)
+            speed *= 1.8
+            for ii in xrange(-2,4):
+                for jj in xrange(-2,4):
+                    disp = ii*dx+jj*dy+motion
+                    rect_position = copy.copy(rect)
+                    rect_position.top += disp[1]
+                    rect_position.left += disp[0]
+                    screen.blit(sprite,rect_position)
+
 buttons = [
+    Background(),
     Button("red",pygame.K_a,50,50),
     Button("yellow",pygame.K_q,100,100),
     Button("green",pygame.K_z,150,50),
@@ -126,7 +156,7 @@ while True:
         for button in buttons:
             button.update(event)
 
-    screen.fill((0,255,0))
+    screen.fill((20,20,20))
     for button in buttons:
         button.draw()
     pygame.display.flip()
