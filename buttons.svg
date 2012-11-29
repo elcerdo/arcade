@@ -158,27 +158,6 @@
     </filter>
     <filter
        inkscape:collect="always"
-       id="filter4218"
-       x="-0.19"
-       width="1.3802585"
-       y="-0.36787598"
-       height="1.735752"
-       inkscape:label="filter4218">
-      <feDisplacementMap
-         id="feDisplacementMap4085"
-         in2="SourceGraphic"
-         in="SourceGraphic"
-         scale="0"
-         xChannelSelector="R"
-         yChannelSelector="B" />
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.81619641"
-         id="feGaussianBlur4220"
-         result="result1" />
-    </filter>
-    <filter
-       inkscape:collect="always"
        id="filter4262"
        x="-0.58835443"
        width="2.1767089"
@@ -214,19 +193,6 @@
          inkscape:collect="always"
          stdDeviation="0.6128692"
          id="feGaussianBlur4264-2-4" />
-    </filter>
-    <filter
-       color-interpolation-filters="sRGB"
-       inkscape:collect="always"
-       id="filter4218-2-1"
-       x="-0.19012924"
-       width="1.3802584"
-       y="-0.36787599"
-       height="1.735752">
-      <feGaussianBlur
-         inkscape:collect="always"
-         stdDeviation="0.81619641"
-         id="feGaussianBlur4220-8-0" />
     </filter>
     <clipPath
        clipPathUnits="userSpaceOnUse"
@@ -659,9 +625,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="4.0000001"
-     inkscape:cx="220.58927"
-     inkscape:cy="1020.825"
+     inkscape:zoom="2.0000001"
+     inkscape:cx="75.92719"
+     inkscape:cy="844.61324"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -675,7 +641,19 @@
      inkscape:showpageshadow="false">
     <inkscape:grid
        type="xygrid"
-       id="grid3247" />
+       id="grid3247"
+       empspacing="5"
+       visible="true"
+       enabled="true"
+       snapvisiblegridlinesonly="true" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="125,780"
+       id="guide3264" />
+    <sodipodi:guide
+       orientation="0,1"
+       position="135,750"
+       id="guide3266" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -1097,7 +1075,7 @@
              sodipodi:open="true"
              sodipodi:end="6.3234698"
              sodipodi:start="0.046354782"
-             d="m 409.12114,105.7839 a 3.59375,3.03125 0 1 1 9.4e-4,-0.0184"
+             d="m 409.12114,105.7839 c -0.092,1.67231 -1.77378,2.9651 -3.75642,2.88753 -1.98264,-0.0776 -3.51533,-1.49615 -3.42336,-3.16846 0.092,-1.67231 1.77378,-2.96511 3.75642,-2.88753 1.97413,0.0772 3.5039,1.48449 3.4243,3.15007"
              sodipodi:ry="3.03125"
              sodipodi:rx="3.59375"
              sodipodi:cy="105.64343"
@@ -2283,6 +2261,167 @@
          transform="matrix(1.0422024,-0.58564956,1.794439,2.1783654,-496.46634,56.731391)"
          inkscape:transform-center-x="-3.5"
          inkscape:transform-center-y="4" />
+    </g>
+    <g
+       id="g4093"
+       transform="translate(-40,-74.999997)"
+       inkscape:export-filename="/home/pgueth/git/arcade/title_a.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3317"
+         d="m 140,362.36218 2,4 15,0 5,-15 15,0 -2,-4 -15,0 -5,15 -15,0"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3321"
+         d="m 172,321.36218 -5,15 -2,-4 5,-15 15,0 2,4 z"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3270"
+         d="m 160,302.36218 -20,60 15,0 5,-15 15,0 -5,15 15,0 20,-60 -45,0 z m 10,15 15,0 -5,15 -15,0 5,-15 z"
+         style="fill:#ff0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3319"
+         d="m 170,362.36218 2,4 15,0 20,-60 -2,-4 -20,60 z"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4110"
+       transform="translate(-48,11.000001)"
+       inkscape:export-filename="/home/pgueth/git/arcade/title_r.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <g
+         id="g4105">
+        <path
+           style="fill:#005500;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+           d="m 210,332.36218 2,4 c 0,0 5,-15 5,-15 0,0 15,0 15,0 l -2,-4 -15,0 -5,15"
+           id="path4103"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#005500;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+           d="m 220,347.36218 2,4 15,0 15,-45 -2,-4 -15,45 z"
+           id="path4101"
+           inkscape:connector-curvature="0" />
+        <path
+           style="fill:#005500;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:round;stroke-opacity:1"
+           d="m 185,362.36218 2,4 15,0 5,-15 10,15 15,0 -2,-4 -15,0 -10,-15 -5,15 z"
+           id="path4099"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="path3276"
+         d="m 205,302.36218 -20,60 15,0 5,-15 10,15 15,0 -10,-15 15,0 15,-45 -45,0 z m 10,15 15,0 -5,15 -15,0 5,-15 z"
+         style="fill:#00d400;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4121"
+       transform="translate(-35,-140)"
+       inkscape:export-filename="/home/pgueth/git/arcade/title_c.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4119"
+         d="m 245,412.36218 2,4 10,-30 20,0 5,-15 -2,-4 -5,15 -20,0 z"
+         style="fill:#aa8800;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3288"
+         d="m 225,427.36218 20,-60 35,0 -5,15 -20,0 -10,30 20,0 -5,15 z"
+         style="fill:#ffcc00;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccccc" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4117"
+         d="m 225,427.36218 2,4 35,0 5,-15 -2,-4 -5,15 z"
+         style="fill:#aa8800;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         sodipodi:nodetypes="ccccccc" />
+    </g>
+    <g
+       id="g4093-3"
+       transform="translate(109.5,15.500001)">
+      <path
+         sodipodi:nodetypes="ccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3317-5"
+         d="m 140,362.36218 2,4 15,0 5,-15 15,0 -2,-4 -15,0 -5,15 -15,0"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3321-2"
+         d="m 172,321.36218 -5,15 -2,-4 5,-15 15,0 2,4 z"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3270-1"
+         d="m 160,302.36218 -20,60 15,0 5,-15 15,0 -5,15 15,0 20,-60 -45,0 z m 10,15 15,0 -5,15 -15,0 5,-15 z"
+         style="fill:#ff0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3319-9"
+         d="m 170,362.36218 2,4 15,0 20,-60 -2,-4 -20,60 z"
+         style="fill:#aa0000;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4160"
+       transform="translate(76.499998,-152.5)"
+       inkscape:export-filename="/home/pgueth/git/arcade/title_d.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4158"
+         d="m 270,427.36218 2,4 10,-30 10,0 4,6 0,-5 -3,-5 -13,0 z"
+         style="fill:#003380;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path3308"
+         d="m 270,382.36218 -20,60 45,0 15,-45 -10,-15 -30,0 z m 10,15 10,0 3.3125,5.0625 -8.3125,24.9375 -15,0 10,-30 z"
+         style="fill:#5599ff;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4156"
+         d="m 250,442.36218 2,4 45,0 c 0,0 15,-45 15,-45 l -2,-4 -15,45 -45,0"
+         style="fill:#003380;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+    </g>
+    <g
+       id="g4171"
+       transform="translate(97.999998,-54.500003)"
+       inkscape:export-filename="/home/pgueth/git/arcade/title_e.png"
+       inkscape:export-xdpi="150"
+       inkscape:export-ydpi="150">
+      <path
+         inkscape:connector-curvature="0"
+         id="path4169"
+         d="m 317,391.36218 2,4 3,-9 20,0 5,-15 -2,-4 -5,15 -20,0 -3,9"
+         style="fill:#808080;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4167"
+         d="m 310,412.36218 2,4 2,-6 12,0 5,-15 -2,-4 -5,15 -12,0 -2,6"
+         style="fill:#808080;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
+      <path
+         sodipodi:nodetypes="ccccccccccccc"
+         inkscape:connector-curvature="0"
+         id="path3313"
+         d="m 310,367.36218 -20,60 35,0 5,-15 -20,0 c 0.66667,-2 1.33333,-4 2,-6 l 12,0 5,-15 -12,0 3,-9 20,0 5,-15 z"
+         style="fill:#e6e6e6;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1"
+         inkscape:export-filename="/home/pgueth/git/arcade/title_e.png"
+         inkscape:export-xdpi="150"
+         inkscape:export-ydpi="150" />
+      <path
+         inkscape:connector-curvature="0"
+         id="path4165"
+         d="m 290,427.36218 2,4 35,0 5,-15 -2,-4 -5,15 z"
+         style="fill:#808080;stroke:#000000;stroke-width:1px;stroke-linecap:round;stroke-linejoin:round;stroke-opacity:1" />
     </g>
   </g>
 </svg>

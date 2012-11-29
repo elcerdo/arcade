@@ -4,6 +4,8 @@
 import pygame
 import sys
 import numpy
+import time
+import copy
 
 pygame.init()
 
@@ -69,13 +71,50 @@ class Joystick:
             return
         screen.blit(self.middle_sprite,self.middle_rect)
 
+def pairs(elements):
+    if len(elements)<2:
+        return
+    last_elem = None
+    for elem in elements:
+        if last_elem is None:
+            last_elem = elem
+            continue
+        yield (last_elem,elem)
+        last_elem = elem
+
+class Title:
+    def __init__(self,xx,yy):
+        self.sprites = [pygame.image.load("title_%s.png" % letter) for letter in "arcade"]
+        self.rects = [sprite.get_rect() for sprite in self.sprites]
+        self.start_time = time.time()
+        self.move_to(xx,yy)
+    def move_to(self,xx,yy):
+        self.rects[0].left = xx
+        self.rects[0].top = yy
+        for left_rect,right_rect in pairs(self.rects):
+            right_rect.left = left_rect.right-39
+            right_rect.top  = left_rect.top
+        self.rects[-1].left += 8 # correct d upper cut
+    def update(self,event):
+        pass
+    def draw(self):
+        time_delta = time.time()-self.start_time
+        positions = 5*numpy.cos(2*numpy.pi*(300*time_delta-numpy.array([rect.left for rect in self.rects],dtype=float))/400.)
+        #positions = numpy.zeros(len(self.rects))
+        for sprite,rect,position in zip(self.sprites,self.rects,positions):
+            rect_position = copy.copy(rect)
+            rect_position.top -= position
+            rect_position.left -= position
+            screen.blit(sprite,rect_position)
+
 buttons = [
     Button("red",pygame.K_a,50,50),
     Button("yellow",pygame.K_q,100,100),
     Button("green",pygame.K_z,150,50),
     Button("blue",pygame.K_s,200,100),
     Button("white",pygame.K_e,250,50),
-    Joystick(pygame.K_LEFT,pygame.K_RIGHT,100,150)
+    Joystick(pygame.K_LEFT,pygame.K_RIGHT,100,150),
+    Title(50,300)
     ]
 
 while True:
