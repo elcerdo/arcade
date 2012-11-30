@@ -16,6 +16,7 @@ if pygame.joystick.get_count()>0:
     joystick.init()
     print "using joystick '%s'" % joystick.get_name()
 
+font = pygame.font.Font(None,30)
 resolution = (800,600)
 background_color = (0,0,0)
 
@@ -119,7 +120,7 @@ class Background:
     def __init__(self):
         self.sprites = [pygame.image.load("background_%d.png" % (number+1)) for number in xrange(2)]
         self.rects = [sprite.get_rect() for sprite in self.sprites]
-        self.transforms = [numpy.array(((294,0),(-187,213))),numpy.array(((187,66),(40,186)))]
+        self.transforms = [numpy.array(((294,0),(-187,213)),dtype=float),numpy.array(((187,66),(40,186)),dtype=float)]
         self.inverses = [numpy.linalg.inv(transform) for transform in self.transforms]
         self.start_time = time.time()
         self.joystick_position = None
@@ -132,17 +133,20 @@ class Background:
         if self.joystick_position is not None:
             motion = 200.*self.joystick_position
         for sprite,rect,transform,inverse in reversed(zip(self.sprites,self.rects,self.transforms,self.inverses)):
-            motion_discrete = numpy.dot(inverse,motion).astype(int)
+            motion_discrete = numpy.dot(motion,inverse).astype(int)
             motion_real = motion-numpy.dot(motion_discrete,transform)
-            motion *= 1.8
-            for ii in xrange(2):
-                for jj in xrange(2):
+            motion *= 1.5
+            for ii in xrange(-5,5):
+                for jj in xrange(-5,5):
                     disp = numpy.dot((jj,ii),transform)+motion_real
                     rect_position = copy.copy(rect)
                     rect_position.left += disp[0]
                     rect_position.top += disp[1]
+                    if not screen.get_rect().colliderect(rect_position):
+                        continue
                     screen.blit(sprite,rect_position)
-                    pygame.draw.rect(screen,(255,0,0),rect_position,4)
+                    #pygame.draw.rect(screen,(255,0,0),rect_position,4)
+                    #screen.blit(font.render(repr((jj,ii)),True,(0,255,0)),rect_position)
 
 buttons = [
     Background(),
@@ -168,4 +172,6 @@ while True:
     for button in buttons:
         button.draw()
     pygame.display.flip()
+
+    #time.sleep(10e-3)
 
