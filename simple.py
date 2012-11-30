@@ -112,29 +112,27 @@ class Background:
     def __init__(self):
         self.sprites = [pygame.image.load("background_%d.png" % (number+1)) for number in xrange(2)]
         self.rects = [sprite.get_rect() for sprite in self.sprites]
-        self.displacements = [(numpy.array((294,0)),numpy.array((-187,213))),(numpy.array((187,66)),numpy.array((40,186)))]
+        self.transforms = [numpy.array(((294,0),(-187,213))),numpy.array(((187,66),(40,186)))]
+        self.inverses = [numpy.linalg.inv(transform) for transform in self.transforms]
         self.start_time = time.time()
     def update(self,event):
         pass
     def draw(self):
         time_delta = time.time()-self.start_time
         speed = 100
-        for sprite,rect,(dx,dy) in reversed(zip(self.sprites,self.rects,self.displacements)):
+        for sprite,rect,transform,inverse in reversed(zip(self.sprites,self.rects,self.transforms,self.inverses)):
             motion = speed*numpy.array((.75,.25))*time_delta
-            while motion[0]>dx[0] and motion[1]>dx[1]:
-                motion -= dx
-            while motion[0]>dy[0] and motion[1]>dy[1]:
-                motion -= dy
-            while motion[0]>(dx+dy)[0] and motion[1]>(dx+dy)[1]:
-                motion -= (dx+dy)
+            motion_discrete = numpy.dot(inverse,motion).astype(int)
+            motion -= numpy.dot(motion_discrete,transform)
             speed *= 1.8
-            for ii in xrange(-2,4):
-                for jj in xrange(-2,4):
-                    disp = ii*dx+jj*dy+motion
+            for ii in xrange(2):
+                for jj in xrange(2):
+                    disp = numpy.dot((jj,ii),transform)+motion
                     rect_position = copy.copy(rect)
-                    rect_position.top += disp[1]
                     rect_position.left += disp[0]
+                    rect_position.top += disp[1]
                     screen.blit(sprite,rect_position)
+                    pygame.draw.rect(screen,(255,0,0),rect_position,4)
 
 buttons = [
     Background(),
