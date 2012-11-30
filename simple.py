@@ -8,6 +8,13 @@ import time
 import copy
 
 pygame.init()
+pygame.joystick.init()
+
+joystick = None
+if pygame.joystick.get_count()>0:
+    joystick = pygame.joystick.Joystick(0)
+    joystick.init()
+    print "using joystick '%s'" % joystick.get_name()
 
 resolution = (800,600)
 background_color = (0,0,0)
@@ -115,19 +122,22 @@ class Background:
         self.transforms = [numpy.array(((294,0),(-187,213))),numpy.array(((187,66),(40,186)))]
         self.inverses = [numpy.linalg.inv(transform) for transform in self.transforms]
         self.start_time = time.time()
+        self.joystick_position = None
     def update(self,event):
-        pass
+        if joystick is None:
+            return
+        self.joystick_position = numpy.array((joystick.get_axis(0),joystick.get_axis(1)))
     def draw(self):
-        time_delta = time.time()-self.start_time
-        speed = 100
+        motion = 100.*numpy.array((.75,.25))*(time.time()-self.start_time)
+        if self.joystick_position is not None:
+            motion = 200.*self.joystick_position
         for sprite,rect,transform,inverse in reversed(zip(self.sprites,self.rects,self.transforms,self.inverses)):
-            motion = speed*numpy.array((.75,.25))*time_delta
             motion_discrete = numpy.dot(inverse,motion).astype(int)
-            motion -= numpy.dot(motion_discrete,transform)
-            speed *= 1.8
+            motion_real = motion-numpy.dot(motion_discrete,transform)
+            motion *= 1.8
             for ii in xrange(2):
                 for jj in xrange(2):
-                    disp = numpy.dot((jj,ii),transform)+motion
+                    disp = numpy.dot((jj,ii),transform)+motion_real
                     rect_position = copy.copy(rect)
                     rect_position.left += disp[0]
                     rect_position.top += disp[1]
