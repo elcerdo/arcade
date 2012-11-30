@@ -83,13 +83,13 @@ class Joystick:
 def pairs(elements):
     if len(elements)<2:
         return
-    last_elem = None
-    for elem in elements:
-        if last_elem is None:
-            last_elem = elem
+    last_element = None
+    for element in elements:
+        if last_element is None:
+            last_element = element
             continue
-        yield (last_elem,elem)
-        last_elem = elem
+        yield (last_element,element)
+        last_element = element
 
 class Title:
     def __init__(self,xx,yy):
@@ -123,13 +123,15 @@ class Background:
         self.transforms = [numpy.array(((294,0),(-187,213)),dtype=float),numpy.array(((187,66),(40,186)),dtype=float)]
         self.inverses = [numpy.linalg.inv(transform) for transform in self.transforms]
         self.start_time = time.time()
+        self.direction = numpy.random.rand()*numpy.pi*2
+        self.direction = numpy.array((numpy.cos(self.direction),numpy.sin(self.direction)))
         self.joystick_position = None
     def update(self,event):
         if joystick is None:
             return
         self.joystick_position = numpy.array((joystick.get_axis(0),joystick.get_axis(1)))
     def draw(self):
-        motion = 100.*numpy.array((.75,.25))*(time.time()-self.start_time)
+        motion = 100.*self.direction*(time.time()-self.start_time)
         if self.joystick_position is not None:
             motion = 200.*self.joystick_position
         for sprite,rect,transform,inverse in reversed(zip(self.sprites,self.rects,self.transforms,self.inverses)):
@@ -148,7 +150,19 @@ class Background:
                     #pygame.draw.rect(screen,(255,0,0),rect_position,4)
                     #screen.blit(font.render(repr((jj,ii)),True,(0,255,0)),rect_position)
 
-buttons = [
+class Lighning:
+    def __init__(self,key,tau=.3):
+        self.key = key
+        self.tau = tau
+        self.start_time = time.time()
+    def update(self,event):
+        if event.type == pygame.KEYDOWN and event.key == self.key: self.start_time = time.time()
+    def draw(self):
+        value = 255*numpy.exp((self.start_time-time.time())/self.tau)
+        screen.fill((value,value,value))
+
+elements = [
+    Lighning(pygame.K_a),
     Background(),
     Button("red",pygame.K_a,50,50),
     Button("yellow",pygame.K_q,100,100),
@@ -165,12 +179,11 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             sys.exit()
-        for button in buttons:
-            button.update(event)
+        for element in elements:
+            element.update(event)
 
-    screen.fill((20,20,20))
-    for button in buttons:
-        button.draw()
+    for element in elements:
+        element.draw()
     pygame.display.flip()
 
     #time.sleep(10e-3)
