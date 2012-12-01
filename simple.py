@@ -155,15 +155,18 @@ class Lighning:
         self.key = key
         self.tau = tau
         self.start_time = time.time()
+        self.rayure = pygame.transform.rotate(pygame.image.load("rayure.png"),45)
+        self.rayure.set_alpha(None)
     def update(self,event):
         if event.type == pygame.KEYDOWN and event.key == self.key: self.start_time = time.time()
     def draw(self):
         value = 255*numpy.exp((self.start_time-time.time())/self.tau)
-        screen.fill((value,value,value))
+        self.rayure.set_alpha(value)
+        screen.blit(self.rayure,self.rayure.get_rect())
 
 elements = [
-    Lighning(pygame.K_a),
     Background(),
+    Lighning(pygame.K_a),
     Button("red",pygame.K_a,50,50),
     Button("yellow",pygame.K_q,100,100),
     Button("green",pygame.K_z,150,50),
@@ -182,6 +185,7 @@ while True:
         for element in elements:
             element.update(event)
 
+    screen.fill((0,0,0))
     for element in elements:
         element.draw()
     pygame.display.flip()
