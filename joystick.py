@@ -26,6 +26,7 @@ class State:
 
 
 joystick_device = "/dev/input/js0"
+assert(os.path.exists(joystick_device))
 joystick_handle = open(joystick_device,"r")
 
 joystick_struct = struct.Struct("IhBB")
