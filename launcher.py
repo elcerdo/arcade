@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.7
+#!/usr/bin/env python2
 
 import pygame
 
@@ -15,9 +15,14 @@ size = (800,600)
 background_color = (0,0,0)
 screen = pygame.display.set_mode(size, pygame.DOUBLEBUF|pygame.HWSURFACE)
 white = (255,255,255)
-font = pygame.font.Font(None, 30)
-font2 = pygame.font.Font(None, 20)
-font3 = pygame.font.Font(None, 10)
+spacing = 55
+font_size = 50
+left = 100
+
+def blit_text_centered(text,height,left,baseline):
+    font = pygame.font.Font("font.ttf", height)
+    font_surface = font.render(text, True, white)
+    screen.blit(font_surface, (left, baseline-height/2))
 
 # Title
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
@@ -37,15 +42,16 @@ while flag:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             flag = False
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
+            flag = False
         if event.type == pygame.JOYHATMOTION:
-            index+=event.value[1]+event.value[0]*10
+            index -= event.value[1]+event.value[0]*10
+            index %= len(gameList)
     screen.fill(background_color)
-    screen.blit(font.render(gameList[index%len(gameList)][0], True, white), (100, 300))
-    screen.blit(font2.render(gameList[(index-1)%len(gameList)][0], True, white), (100, 200))
-    screen.blit(font2.render(gameList[(index+1)%len(gameList)][0], True, white), (100, 400))
-    screen.blit(font3.render(gameList[(index-2)%len(gameList)][0], True, white), (100, 100))
-    screen.blit(font3.render(gameList[(index+2)%len(gameList)][0], True, white), (100, 500))
-#    for i,game in enumerate(gameList):
-#        screen.blit(font.render(game[0], True, white), (100, i*100+200))
+
+    for delta_index in range(-3,4):
+        title = gameList[(index+delta_index)%len(gameList)][0]
+        this_font_size = font_size-abs(delta_index)*10
+        blit_text_centered(title,this_font_size,left,size[1]/2+spacing*delta_index)
 
     pygame.display.flip()
