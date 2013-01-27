@@ -1,57 +1,72 @@
 #!/usr/bin/env python2
 
 import pygame
+import sys
 
+# Init 
 pygame.init()
 pygame.joystick.init()
-
 for i in range(pygame.joystick.get_count()):
     joy=pygame.joystick.Joystick(i)
+    print "initialize %s" % joy.get_name()
     joy.init()
-    print joy.get_name()
-
-# Set screen
-size = (800,600)
-background_color = (0,0,0)
-screen = pygame.display.set_mode(size, pygame.DOUBLEBUF|pygame.HWSURFACE)
-white = (255,255,255)
-spacing = 55
-font_size = 50
-left = 100
-
-def blit_text_centered(text,height,left,baseline):
-    font = pygame.font.Font("font.ttf", height)
-    font_surface = font.render(text, True, white)
-    screen.blit(font_surface, (left, baseline-height/2))
-
-# Title
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 
-# Import conf
-gameList=[]
-for line in open("burne.config","r"):
-    gameList.append(line.split(";"))
-for i in range(100):
-    gameList.append([str(i)])
-index=0
+# Load conf
+games = [line.split(";") for line in open("burne.config","r")]
+print "found %d games" % len(games)
 
-# ---Main---
+# Colors
+class Colors:
+    white = (255,255,255)
+    black = (0,0,0)
+    debug = (255,0,255)
+    background = black
+    font = white
 
-flag = True
-while flag:
+# Set screen
+resolution = (800,600)
+screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE)
+spacing = 2
+font_size = 50
+font_size_progression = 8
+left = 100
+left_progression = 5
+left_init = -50
+
+# Helpers
+def blit_text_centered(text,height,left,baseline):
+    font = pygame.font.Font("font.ttf", height)
+    font_surface = font.render(text, True, Colors.white)
+    font_surface_rect = font_surface.get_rect()
+    font_surface_rect.height -= 8/50.*height
+    font_surface_rect.top += 8/50.*height
+    screen.blit(font_surface, (left,baseline-font_surface_rect.height/2.), font_surface_rect)
+
+def visible_games(index,delta=4):
+    for delta_index in range(-delta,delta+1):
+        current_index = delta_index+index
+        current_index %= len(games)
+        yield delta_index, games[current_index]
+
+# Main loop
+index = 0
+while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            flag = False
+            sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            flag = False
+            sys.exit()
         if event.type == pygame.JOYHATMOTION:
             index -= event.value[1]+event.value[0]*10
-            index %= len(gameList)
-    screen.fill(background_color)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
+            index += 1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
+            index -= 1
 
-    for delta_index in range(-3,4):
-        title = gameList[(index+delta_index)%len(gameList)][0]
-        this_font_size = font_size-abs(delta_index)*10
-        blit_text_centered(title,this_font_size,left,size[1]/2+spacing*delta_index)
-
+    screen.fill(Colors.background)
+    for delta_index, game  in visible_games(index):
+        title = game[0]
+        this_font_size = font_size-abs(delta_index)*font_size_progression
+        blit_text_centered(title,this_font_size,left+left_progression*delta_index*delta_index+left_init*(delta_index==0),resolution[1]/2+(spacing+(font_size+this_font_size)/2)*delta_index)
     pygame.display.flip()
