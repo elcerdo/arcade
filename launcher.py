@@ -3,6 +3,7 @@
 import pygame
 import sys
 import time
+import random
 
 # Init 
 pygame.init()
@@ -26,8 +27,9 @@ class Colors:
     font = white
 
 # Set screen
-resolution = (800,600)
-screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE)
+resolution = (1024,768)
+#screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE)
+screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE|pygame.FULLSCREEN)
 spacing = 2
 font_size = 50
 font_size_progression = 8
@@ -50,6 +52,8 @@ def visible_games(index,delta=4):
 # Main loop
 index_target = 0
 index_current = 0
+index_direction = 0
+index_frame = 0
 frame = 0
 colors = pygame.image.load("colors.png")
 while True:
@@ -58,13 +62,23 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             sys.exit()
-        if event.type == pygame.JOYHATMOTION:
-            index_target -= event.value[1]+event.value[0]*10
+        #if event.type == pygame.JOYHATMOTION:
+        #    index_target -= event.value[1]+event.value[0]*10
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
-            index_target += 1
+            index_direction = 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
-            index_target -= 1
+            index_direction = -1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            index_target = random.randint(0,len(games)-1)
+        if event.type == pygame.KEYUP and event.key in (pygame.K_DOWN,pygame.K_UP):
+            index_direction = 0
 
+    if index_frame:
+        index_frame -=1
+    else:
+        index_frame = 5
+        index_target += index_direction
+    
     index_current += (index_target-index_current)*.05
     if abs(index_current-index_target)<.2: index_current=index_target
     index_residual = index_current-round(index_current)
