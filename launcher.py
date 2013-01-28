@@ -2,6 +2,7 @@
 
 import pygame
 import sys
+import time
 
 # Init 
 pygame.init()
@@ -35,12 +36,10 @@ left_progression = 5
 left_init = -50
 
 # Helpers
-def blit_text_centered(text,height,left,baseline):
+def blit_text_centered(text,height,left,baseline,color):
     font = pygame.font.Font("font.ttf", height)
-    font_surface = font.render(text, True, Colors.white)
+    font_surface = font.render(text, True, color)
     font_surface_rect = font_surface.get_bounding_rect()
-    #font_surface_rect.height -= 8/50.*height
-    #font_surface_rect.top += 8/50.*height
     screen.blit(font_surface, (left,baseline-font_surface_rect.height/2.), font_surface_rect)
 
 def visible_games(index,delta=4):
@@ -51,6 +50,8 @@ def visible_games(index,delta=4):
 
 # Main loop
 index = 0
+frame = 0
+colors = pygame.image.load("colors.png")
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -68,5 +69,14 @@ while True:
     for delta_index, game  in visible_games(index):
         title = game[0]
         this_font_size = font_size-abs(delta_index)*font_size_progression
-        blit_text_centered(title,this_font_size,left+left_progression*delta_index*delta_index+left_init*(delta_index==0),resolution[1]/2+(spacing+(font_size+this_font_size)/2)*delta_index)
+        this_left      = left+left_progression*delta_index*delta_index+left_init*(delta_index==0)
+        this_baseline  = resolution[1]/2+(spacing+(font_size+this_font_size)/2)*delta_index
+        this_color     = Colors.white
+        if delta_index==0:
+            this_color = colors.get_at(((frame*10)%colors.get_width(),0))
+        blit_text_centered(title,this_font_size,this_left,this_baseline,this_color)
     pygame.display.flip()
+
+    frame += 1
+    
+    time.sleep(10e-3)
