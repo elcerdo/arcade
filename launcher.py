@@ -38,9 +38,9 @@ left_init = -50
 def blit_text_centered(text,height,left,baseline):
     font = pygame.font.Font("font.ttf", height)
     font_surface = font.render(text, True, Colors.white)
-    font_surface_rect = font_surface.get_rect()
-    font_surface_rect.height -= 8/50.*height
-    font_surface_rect.top += 8/50.*height
+    font_surface_rect = font_surface.get_bounding_rect()
+    #font_surface_rect.height -= 8/50.*height
+    #font_surface_rect.top += 8/50.*height
     screen.blit(font_surface, (left,baseline-font_surface_rect.height/2.), font_surface_rect)
 
 def visible_games(index,delta=4):
