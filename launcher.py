@@ -4,13 +4,21 @@ import pygame
 import sys
 import time
 import random
+import optparse
+
+# Option parser
+from optparse import OptionParser
+parser = optparse.OptionParser()
+parser.add_option("-f", "--fullscreen", action="store_true", help="launch interface in full screen", default=False)
+(options, args) = parser.parse_args()
 
 # Init 
 pygame.init()
 pygame.joystick.init()
+print "found %d joystick" % pygame.joystick.get_count()
 for i in range(pygame.joystick.get_count()):
     joy=pygame.joystick.Joystick(i)
-    print "initialize %s" % joy.get_name()
+    print "  %s" % joy.get_name()
     joy.init()
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 
@@ -28,8 +36,9 @@ class Colors:
 
 # Set screen
 resolution = (1024,768)
-#screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE)
-screen = pygame.display.set_mode(resolution, pygame.DOUBLEBUF|pygame.HWSURFACE|pygame.FULLSCREEN)
+screen_flags = pygame.DOUBLEBUF|pygame.HWSURFACE
+if options.fullscreen: screen_flags |= pygame.FULLSCREEN
+screen = pygame.display.set_mode(resolution, screen_flags)
 spacing = 2
 font_size = 50
 font_size_progression = 8
@@ -62,22 +71,25 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             sys.exit()
+
         if event.type == pygame.JOYHATMOTION:
             index_direction = event.value[1]+event.value[0]*3
         if event.type == pygame.JOYBUTTONDOWN and event.button==0:
             index_target = random.randint(0,len(games)-1)
+
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             index_direction = 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
             index_direction = -1
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
-            index_target = random.randint(0,len(games)-1)
         if event.type == pygame.KEYUP and event.key in (pygame.K_DOWN,pygame.K_UP):
             index_direction = 0
 
-    if index_frame:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            index_target = random.randint(0,len(games)-1)
+
+    if index_frame>0:
         index_frame -=1
-    else:
+    elif index_direction:
         index_frame = 5
         index_target += index_direction
     
@@ -96,7 +108,7 @@ while True:
         if delta_index==0:
             this_color = colors.get_at(((frame*10)%colors.get_width(),0))
         blit_text_centered(title,this_font_size,this_left,this_baseline,this_color,"font.ttf")
-    #blit_text_centered("%d %.2f %.2f %d" % (index_target,index_current,index_residual,round(index_current)),20,10,20)
+    blit_text_centered("%d %.2f %.2f %d %d" % (index_target,index_current,index_residual,round(index_current),index_frame),20,10,20)
     pygame.display.flip()
 
     frame += 1
