@@ -7,6 +7,9 @@ import random
 import optparse
 import os
 
+basedir = "~/git/arcade"
+basedir = os.path.expanduser(basedir)
+
 # Option parser
 from optparse import OptionParser
 parser = optparse.OptionParser()
@@ -24,12 +27,12 @@ for i in range(pygame.joystick.get_count()):
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 
 # Load conf
-games = [line.replace("\n","").split(";") for line in open("burne.config","r")]
+games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,"burne.config"),"r")]
 print "found %d games" % len(games)
 
 # Check games roms
 for game_name,game_rom in games:
-    if os.path.isfile(os.path.join("roms",game_rom)):
+    if os.path.isfile(os.path.join(basedir,"roms",game_rom)):
         continue
     print "missing rom for game %s (%s)" % (game_name,game_rom)
 
@@ -71,7 +74,7 @@ index_current = 0
 index_direction = 0
 index_frame = 0
 frame = 0
-colors = pygame.image.load("colors.png")
+colors = pygame.image.load(os.path.join(basedir,"colors.png"))
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -114,7 +117,7 @@ while True:
         this_color     = Colors.white
         if delta_index==0:
             this_color = colors.get_at(((frame*10)%colors.get_width(),0))
-        blit_text_centered(title,this_font_size,this_left,this_baseline,this_color,"font.ttf")
+        blit_text_centered(title,this_font_size,this_left,this_baseline,this_color,os.path.join(basedir,"font.ttf"))
     blit_text_centered("%d %.2f %.2f %d %d" % (index_target,index_current,index_residual,round(index_current),index_frame),20,10,20)
     pygame.display.flip()
 
