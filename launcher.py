@@ -5,6 +5,7 @@ import sys
 import time
 import random
 import optparse
+import os
 
 # Option parser
 from optparse import OptionParser
@@ -23,8 +24,14 @@ for i in range(pygame.joystick.get_count()):
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 
 # Load conf
-games = [line.split(";") for line in open("burne.config","r")]
+games = [line.replace("\n","").split(";") for line in open("burne.config","r")]
 print "found %d games" % len(games)
+
+# Check games roms
+for game_name,game_rom in games:
+    if os.path.isfile(os.path.join("roms",game_rom)):
+        continue
+    print "missing rom for game %s (%s)" % (game_name,game_rom)
 
 # Colors
 class Colors:
@@ -84,7 +91,7 @@ while True:
         if event.type == pygame.KEYUP and event.key in (pygame.K_DOWN,pygame.K_UP):
             index_direction = 0
 
-        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             index_target = random.randint(0,len(games)-1)
 
     if index_frame>0:
