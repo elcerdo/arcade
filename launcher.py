@@ -62,8 +62,10 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             sys.exit()
-        #if event.type == pygame.JOYHATMOTION:
-        #    index_target -= event.value[1]+event.value[0]*10
+        if event.type == pygame.JOYHATMOTION:
+            index_direction = event.value[1]+event.value[0]*3
+        if event.type == pygame.JOYBUTTONDOWN and event.button==0:
+            index_target = random.randint(0,len(games)-1)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             index_direction = 1
         if event.type == pygame.KEYDOWN and event.key == pygame.K_DOWN:
