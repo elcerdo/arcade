@@ -17,6 +17,7 @@ parser = optparse.OptionParser()
 parser.add_option("-f", "--fullscreen", action="store_true", help="launch interface in full screen", default=False)
 parser.add_option("-d", "--debug", action="store_true", help="activate debug display", default=False)
 parser.add_option("-c", "--config-file", dest="config", help="load config from FILE", metavar="FILE", default="good.config")
+parser.add_option("-i", "--index", dest="index", help="start interface on game INDEX", metavar="INDEX", type="int", default=0)
 (options, args) = parser.parse_args()
 
 # Init 
@@ -91,8 +92,9 @@ def launch_game(index):
     sys.exit()
 
 # Main loop
-index_target = 0
-index_current = 0
+index_target = options.index
+index_target %= len(games)
+index_current = index_target
 index_direction = 0
 index_frame = 0
 frame = 0
