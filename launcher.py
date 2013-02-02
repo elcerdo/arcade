@@ -16,6 +16,7 @@ from optparse import OptionParser
 parser = optparse.OptionParser()
 parser.add_option("-f", "--fullscreen", action="store_true", help="launch interface in full screen", default=False)
 parser.add_option("-d", "--debug", action="store_true", help="activate debug display", default=False)
+parser.add_option("-c", "--config-file", dest="config", help="load config from FILE", metavar="FILE", default="burne.config")
 (options, args) = parser.parse_args()
 
 # Init 
@@ -29,14 +30,17 @@ for i in range(pygame.joystick.get_count()):
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 
 # Load conf
-games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,"burne.config"),"r")]
+games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,options.config),"r")]
 print "found %d games" % len(games)
 
 # Check games roms
-for game_name,game_rom in games:
-    if os.path.isfile(os.path.join(basedir,"roms",game_rom)):
-        continue
-    print "missing rom for game %s (%s)" % (game_name,game_rom)
+try:
+    for game_name,game_rom in games:
+        if os.path.isfile(os.path.join(basedir,"roms",game_rom)):
+            continue
+        print "missing rom for game %s (%s)" % (game_name,game_rom)
+except ValueError:
+    print "unable to check rom file"
 
 # Colors
 class Colors:
@@ -54,7 +58,7 @@ screen = pygame.display.set_mode(resolution, screen_flags)
 spacing = 2
 font_size = 50
 font_size_progression = 8
-left = 100
+left = 75
 left_progression = 5
 
 # Helpers
@@ -85,6 +89,7 @@ frame = 0
 time_start = time.time()
 colors = pygame.image.load(os.path.join(basedir,"colors.png"))
 joystick_last = -1
+events = []
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -108,6 +113,11 @@ while True:
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             index_target = random.randint(0,len(games)-1)
+
+        if options.debug:
+            events.append("%s" % event)
+            while len(events)>5:
+                events.pop(0)
 
     if index_frame>0:
         index_frame -=1
@@ -137,6 +147,7 @@ while True:
     if options.debug:
         blit_text_multiline("INDEX\ntarget=%d\ncurrent=%.2f\nresidual=%.2f\ncurrent_round=%d\nframe=%d" % (index_target,index_current,index_residual,round(index_current),index_frame),20,10,10)
         blit_text_multiline("JOYSTICK\ncount=%d\nlast=%d\n\nframe=%d\nfps=%.1f" % (pygame.joystick.get_count(),joystick_last,frame,frame/(time_last-time_start)),20,140,10)
+        blit_text_multiline("EVENT\n"+"\n".join(events),20,270,10)
     pygame.display.flip()
 
     time.sleep(10e-3)
