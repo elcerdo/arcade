@@ -16,7 +16,7 @@ from optparse import OptionParser
 parser = optparse.OptionParser()
 parser.add_option("-f", "--fullscreen", action="store_true", help="launch interface in full screen", default=False)
 parser.add_option("-d", "--debug", action="store_true", help="activate debug display", default=False)
-parser.add_option("-c", "--config-file", dest="config", help="load config from FILE", metavar="FILE", default="burne.config")
+parser.add_option("-c", "--config-file", dest="config", help="load config from FILE", metavar="FILE", default="good.config")
 (options, args) = parser.parse_args()
 
 # Init 
@@ -28,6 +28,7 @@ for i in range(pygame.joystick.get_count()):
     print "  %s" % joy.get_name()
     joy.init()
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
+pygame.mouse.set_visible(False)
 
 # Load conf
 games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,options.config),"r")]
@@ -80,6 +81,15 @@ def visible_games(index,delta=4):
         current_index %= len(games)
         yield delta_index, games[current_index]
 
+def launch_game(index):
+    index_modulo = index % len(games)
+    game = games[index_modulo]
+    print "INDEX=%d" % index_modulo
+    print "TITLE=%s" % game[0]
+    if len(game)==3 and "sdlmame" in game[1]:
+        print "COMMAND=sdlmame %s" % game[2]
+    sys.exit()
+
 # Main loop
 index_target = 0
 index_current = 0
@@ -93,16 +103,18 @@ events = []
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            sys.exit()
+            sys.exit(1)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
-            sys.exit()
+            sys.exit(1)
 
         if event.type == pygame.JOYHATMOTION:
             index_direction = event.value[1]+event.value[0]*3
             joystick_last = event.joy
-        if event.type == pygame.JOYBUTTONDOWN and event.button==0:
+        if event.type == pygame.JOYBUTTONDOWN and event.button == 0:
             index_target = random.randint(0,len(games)-1)
             joystick_last = event.joy
+        if event.type == pygame.JOYBUTTONDOWN and event.button == 1:
+            launch_game(int(round(index_current)))
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             index_direction = 1
@@ -110,9 +122,10 @@ while True:
             index_direction = -1
         if event.type == pygame.KEYUP and event.key in (pygame.K_DOWN,pygame.K_UP):
             index_direction = 0
-
         if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
             index_target = random.randint(0,len(games)-1)
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
+            launch_game(int(round(index_current)))
 
         if options.debug:
             events.append("%s" % event)
