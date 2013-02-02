@@ -6,6 +6,7 @@ import time
 import random
 import optparse
 import os
+import time
 
 basedir = "~/git/arcade"
 basedir = os.path.expanduser(basedir)
@@ -14,6 +15,7 @@ basedir = os.path.expanduser(basedir)
 from optparse import OptionParser
 parser = optparse.OptionParser()
 parser.add_option("-f", "--fullscreen", action="store_true", help="launch interface in full screen", default=False)
+parser.add_option("-d", "--debug", action="store_true", help="activate debug display", default=False)
 (options, args) = parser.parse_args()
 
 # Init 
@@ -62,6 +64,12 @@ def blit_text_centered(text,height,left,baseline,color=Colors.debug,font_name=No
     font_surface_rect = font_surface.get_bounding_rect()
     screen.blit(font_surface, (left,baseline-font_surface_rect.height/2.), font_surface_rect)
 
+def blit_text_multiline(text,height,left,baseline,color=Colors.debug,font_name=None):
+    font = pygame.font.Font(font_name, int(height))
+    for kk,line in enumerate(text.split("\n")):
+        font_surface = font.render(line, True, color)
+        screen.blit(font_surface, (left,baseline+kk*height))
+
 def visible_games(index,delta=4):
     for delta_index in range(-delta,delta+1):
         current_index = delta_index+index
@@ -74,7 +82,9 @@ index_current = 0
 index_direction = 0
 index_frame = 0
 frame = 0
+time_start = time.time()
 colors = pygame.image.load(os.path.join(basedir,"colors.png"))
+joystick_last = -1
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -84,8 +94,10 @@ while True:
 
         if event.type == pygame.JOYHATMOTION:
             index_direction = event.value[1]+event.value[0]*3
+            joystick_last = event.joy
         if event.type == pygame.JOYBUTTONDOWN and event.button==0:
             index_target = random.randint(0,len(games)-1)
+            joystick_last = event.joy
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
             index_direction = 1
@@ -118,9 +130,13 @@ while True:
         if delta_index==0:
             this_color = colors.get_at(((frame*10)%colors.get_width(),0))
         blit_text_centered(title,this_font_size,this_left,this_baseline,this_color,os.path.join(basedir,"font.ttf"))
-    blit_text_centered("%d %.2f %.2f %d %d" % (index_target,index_current,index_residual,round(index_current),index_frame),20,10,20)
-    pygame.display.flip()
 
     frame += 1
+    time_last = time.time()
     
+    if options.debug:
+        blit_text_multiline("INDEX\ntarget=%d\ncurrent=%.2f\nresidual=%.2f\ncurrent_round=%d\nframe=%d" % (index_target,index_current,index_residual,round(index_current),index_frame),20,10,10)
+        blit_text_multiline("JOYSTICK\ncount=%d\nlast=%d\n\nframe=%d\nfps=%.1f" % (pygame.joystick.get_count(),joystick_last,frame,frame/(time_last-time_start)),20,140,10)
+    pygame.display.flip()
+
     time.sleep(10e-3)
