@@ -15,7 +15,7 @@ for i in range(pygame.joystick.get_count()):
 
 while True:
     for event in pygame.event.get():
-        if event.type==pygame.JOYBUTTONDOWN and event.button==1:
+        if event.type==pygame.JOYBUTTONDOWN and event.joy==0 and event.button==7:
             print "KILL"
             sys.exit()
 
