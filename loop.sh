@@ -15,6 +15,6 @@ do
     echo "index ${launcher_index}"
     ${launcher_command} &
     pid=$!
-    ./killer.py && kill $pid
+    ./killer.py && kill $pid || break
 done
 
