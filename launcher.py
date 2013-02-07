@@ -35,8 +35,8 @@ pygame.mouse.set_visible(False)
 # Load sounds
 class SoundFX:
     channel = pygame.mixer.Channel(0)
-    move = pygame.mixer.Sound("Powerup.wav")
-    select = pygame.mixer.Sound("Powerup2.wav")
+    move = pygame.mixer.Sound(os.path.join(basedir,"Powerup.wav"))
+    select = pygame.mixer.Sound(os.path.join(basedir,"Powerup2.wav"))
 
 # Load conf
 games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,options.config),"r")]
