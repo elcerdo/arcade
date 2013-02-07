@@ -22,6 +22,7 @@ parser.add_option("-i", "--index", dest="index", help="start interface on game I
 
 # Init 
 pygame.init()
+pygame.mixer.init()
 pygame.joystick.init()
 print "found %d joystick" % pygame.joystick.get_count()
 for i in range(pygame.joystick.get_count()):
@@ -30,6 +31,12 @@ for i in range(pygame.joystick.get_count()):
     joy.init()
 pygame.display.set_caption("ARCADE!!!!! MOZAFUCKA")
 pygame.mouse.set_visible(False)
+
+# Load sounds
+class SoundFX:
+    channel = pygame.mixer.Channel(0)
+    move = pygame.mixer.Sound("Powerup.wav")
+    select = pygame.mixer.Sound("Powerup2.wav")
 
 # Load conf
 games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,options.config),"r")]
@@ -83,18 +90,22 @@ def visible_games(index,delta=4):
         yield delta_index, games[current_index]
 
 def launch_game(index):
+    SoundFX.channel.play(SoundFX.select)
     index_modulo = index % len(games)
     game = games[index_modulo]
     print "INDEX=%d" % index_modulo
     print "TITLE=%s" % game[0]
     if len(game)==3 and "sdlmame" in game[1]:
         print "COMMAND=sdlmame %s" % game[2]
+    while SoundFX.channel.get_busy():
+        time.sleep(1e-3)
     sys.exit()
 
 # Main loop
 index_target = options.index
 index_target %= len(games)
 index_current = index_target
+index_current_last = index_target
 index_direction = 0
 index_frame = 0
 frame = 0
@@ -143,6 +154,10 @@ while True:
     index_current += (index_target-index_current)*.05
     if abs(index_current-index_target)<.2: index_current=index_target
     index_residual = index_current-round(index_current)
+
+    if int(round(index_current))!=index_current_last:
+        index_current_last = int(round(index_current))
+        SoundFX.channel.play(SoundFX.move)
 
     screen.fill(Colors.background)
     for delta_index, game  in visible_games(int(round(index_current))):
