@@ -4,6 +4,7 @@ set -u
 set -e
 
 basedir="${HOME}/git/arcade"
+logfilename="${HOME}/arcade_log"
 
 launcher_index=0
 while :
@@ -14,6 +15,7 @@ do
     launcher_command="$(echo "${launcher_log}" | awk -F '=' '/COMMAND/ {print $2}')"
     test "${launcher_command}" && test "${launcher_index}" || break
     echo "command ${launcher_command}"
+    echo "$(date) ${launcher_command}" >> "${logfilename}"
     echo "index ${launcher_index}"
     ${launcher_command} &
     pid=$!
