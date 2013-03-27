@@ -119,6 +119,8 @@ while True:
             sys.exit(1)
         if event.type == pygame.KEYDOWN and event.key == pygame.K_ESCAPE:
             sys.exit(1)
+        if event.type == pygame.KEYDOWN and event.scancode == 124:
+            sys.exit(1)
 
         if event.type == pygame.JOYHATMOTION:
             index_direction = event.value[1]+event.value[0]*3
