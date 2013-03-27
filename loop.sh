@@ -20,5 +20,6 @@ do
     ${launcher_command} &
     pid=$!
     ${basedir}/killer.py && kill $pid || break
+    echo "$(date) QUIT"
 done
 
