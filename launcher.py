@@ -66,8 +66,8 @@ class Button:
         self.up = up
         self.phase = phase
         self.state = False
-        self.up_sprite = pygame.image.load("%s_up.png" % color)
-        self.down_sprite = pygame.image.load("%s_down.png" % color)
+        self.up_sprite = pygame.image.load(os.path.join(basedir,"%s_up.png" % color))
+        self.down_sprite = pygame.image.load(os.path.join(basedir,"%s_down.png" % color))
         self.up_rect = self.up_sprite.get_rect()
         self.down_rect = self.down_sprite.get_rect()
         self.move_to(xx,yy)
@@ -92,9 +92,9 @@ class Joystick:
         self.period = period
         self.state_right = False
         self.state_left = False
-        self.middle_sprite = pygame.image.load("joystick_middle.png")
-        self.right_sprite = pygame.image.load("joystick_right.png")
-        self.left_sprite = pygame.image.load("joystick_left.png")
+        self.middle_sprite = pygame.image.load(os.path.join(basedir,"joystick_middle.png"))
+        self.right_sprite = pygame.image.load(os.path.join(basedir,"joystick_right.png"))
+        self.left_sprite = pygame.image.load(os.path.join(basedir,"joystick_left.png"))
         self.middle_rect = self.middle_sprite.get_rect()
         self.right_rect = self.right_sprite.get_rect()
         self.left_rect = self.left_sprite.get_rect()
