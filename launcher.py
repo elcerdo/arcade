@@ -88,7 +88,7 @@ class Button:
         screen.blit(self.up_sprite,self.up_rect)
 
 class Joystick:
-    def __init__(self,xx,yy,period=2.):
+    def __init__(self,xx,yy,period=.75):
         self.period = period
         self.state_right = False
         self.state_left = False
@@ -131,14 +131,19 @@ class Joystick:
             return
         screen.blit(self.middle_sprite,self.middle_rect)
 
-elements = [
-    Button("red",50,50,0),
-    Button("yellow",100,100,.2),
-    Button("green",150,50,.4),
-    Button("blue",200,100,.6),
-    Button("white",250,50,.8),
-    Joystick(100,150),
-    ]
+elements = []
+def append_player_elements(xx,yy,color_top,color_bottom):
+    elements.append(Joystick(xx+50,yy))
+    xx -= 20
+    yy += 10
+    elements.append(Button(color_top,xx+200,yy,0.4))
+    elements.append(Button(color_top,xx+300,yy-20,0.5))
+    elements.append(Button(color_top,xx+400,yy-25,0.6))
+    yy += 10
+    elements.append(Button(color_bottom,xx+200,yy+50,0.0))
+    elements.append(Button(color_bottom,xx+300,yy+30,0.1))
+    elements.append(Button(color_bottom,xx+400,yy+25,0.2))
+
 
 # Set screen
 resolution = (1024,768)
@@ -150,6 +155,13 @@ font_size = 50
 font_size_progression = 8
 left = 75
 left_progression = 5
+
+append_player_elements(0,575,"blue","yellow")
+append_player_elements(resolution[0]/2,575,"green","red")
+elements.append(Button("red",resolution[0]/2-150-45,450,0.7))
+elements.append(Button("red",resolution[0]/2+150-45,450,0.7))
+elements.append(Button("white",resolution[0]/2-50-45,450,0.8))
+elements.append(Button("white",resolution[0]/2+50-45,450,0.8))
 
 # Helpers
 def blit_text_centered(text,height,left,baseline,color=Colors.debug,font_name=None):
@@ -252,7 +264,7 @@ while True:
         title = game[0]
         this_font_size = font_size-abs(delta_index_current)*font_size_progression
         this_left      = left+left_progression*delta_index_current*delta_index_current
-        this_baseline  = 200+(spacing+(font_size+this_font_size)/2)*delta_index_current
+        this_baseline  = 225+(spacing+(font_size+this_font_size)/2)*delta_index_current
         this_color     = Colors.white
         if delta_index==0:
             this_color = colors.get_at(((frame*10)%colors.get_width(),0))
