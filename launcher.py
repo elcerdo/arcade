@@ -35,8 +35,10 @@ pygame.mouse.set_visible(False)
 # Load sounds
 class SoundFX:
     channel = pygame.mixer.Channel(0)
+    channel_music = pygame.mixer.Channel(1)
     move = pygame.mixer.Sound(os.path.join(basedir,"Powerup.wav"))
     select = pygame.mixer.Sound(os.path.join(basedir,"Powerup2.wav"))
+    music = pygame.mixer.Sound(os.path.join(basedir,"burne.ogg"))
 
 # Load conf
 games = [line.replace("\n","").split(";") for line in open(os.path.join(basedir,options.config),"r")]
@@ -195,6 +197,7 @@ def launch_game(index):
     sys.exit()
 
 # Main loop
+SoundFX.channel_music.play(SoundFX.music)
 index_target = options.index
 index_target %= len(games)
 index_current = index_target
