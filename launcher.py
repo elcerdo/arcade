@@ -204,6 +204,7 @@ index_frame = 0
 frame = 0
 time_start = time.time()
 colors = pygame.image.load(os.path.join(basedir,"colors.png"))
+back_text = pygame.image.load(os.path.join(basedir,"back_text.png"))
 joystick_last = -1
 events = []
 while True:
@@ -259,6 +260,7 @@ while True:
         SoundFX.channel.play(SoundFX.move)
 
     screen.fill(Colors.background)
+    screen.blit(back_text,back_text.get_rect())
     for delta_index, game  in visible_games(int(round(index_current))):
         delta_index_current = delta_index-index_residual
         title = game[0]
