@@ -192,6 +192,10 @@ def launch_game(index):
     print "TITLE=%s" % game[0]
     if len(game)==3 and "sdlmame" in game[1]:
         print "COMMAND=sdlmame %s" % game[2]
+    elif "wine" in game[1]:
+        print "COMMAND=wine %s" % game[2]
+    elif "exec" in game[1]:
+        print "COMMAND=%s" % game[2]
     while SoundFX.channel.get_busy():
         time.sleep(1e-3)
     sys.exit()
@@ -225,7 +229,7 @@ while True:
         if event.type == pygame.JOYBUTTONDOWN and event.button in [5]:
             index_target = random.randint(0,len(games)-1)
             joystick_last = event.joy
-        if event.type == pygame.JOYBUTTONDOWN and event.button in [0,1,2,3,4]:
+        if not options.debug and event.type == pygame.JOYBUTTONDOWN and event.button in [0,1,2,3,4]:
             launch_game(int(round(index_current)))
 
         if event.type == pygame.KEYDOWN and event.key == pygame.K_UP:
