@@ -12,7 +12,6 @@ for i in range(pygame.joystick.get_count()):
     print "  %s" % joy.get_name()
     joy.init()
 
-
 while True:
     for event in pygame.event.get():
         if event.type==pygame.JOYBUTTONDOWN and event.joy==0 and event.button==7:

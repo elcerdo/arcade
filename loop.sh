@@ -19,8 +19,7 @@ do
     echo "index ${launcher_index}"
     ${launcher_command} &
     pid=$!
-    ${basedir}/killer.py || break
-    ps -p $pid >/dev/null 2>&1 || kill -9 $pid
+    ${basedir}/killer.py && kill -9 $pid || break
     echo "$(date) QUIT" >> "${logfilename}"
 done
 
