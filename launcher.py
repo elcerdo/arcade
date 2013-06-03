@@ -163,7 +163,7 @@ append_player_elements(resolution[0]/2,575,"green","red")
 elements.append(Button("red",resolution[0]/2-150-45,450,0.7))
 elements.append(Button("red",resolution[0]/2+150-45,450,0.7))
 elements.append(Button("white",resolution[0]/2-50-45,450,0.8))
-elements.append(Button("white",resolution[0]/2+50-45,450,0.8))
+elements.append(Button("yellow",resolution[0]/2+50-45,450,0.8))
 
 # Helpers
 def blit_text_centered(text,height,left,baseline,color=Colors.debug,font_name=None):
